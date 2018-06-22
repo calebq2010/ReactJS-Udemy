@@ -16,50 +16,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header header={this.state.headerText} />
-        <Content content={this.state.contentText}/>
-        {/*<Clock />*/}
+        <Header />
+        <Content />
       </div>
     );
   }
 }
 
-App.defaultProps = {
-  header: 'Default Props for the Header....',
-  content: 'Default Props for the content....'
-}
 
-class Clock extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {date: new Date()};
-  }
-
-  componentDidMount() {
-    this.timeID = setInterval(
-      () => {this.tick()}
-      , 1000)
-  }
-
-  tick() {
-    this.setState({
-      date: new Date()
-    });
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timeID)
-  }
-
-  render(){
-    return (
-      <div>
-        <h1>This is the time: {this.state.date.toLocaleTimeString()} </h1>
-      </div>
-    );
-  }
-}
 
 class Header extends Component {
   render(){
@@ -76,13 +40,41 @@ class Content extends Component {
   render(){
     return (
       <div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        {this.props.content}
-      </div>
+        <div className="App-intro">
+          <p>
+            In this lecture we are going to go over Component.
+          </p>
+        </div>
+        <div>
+          <h4>Array: {this.props.propArray}</h4>
+        </div>
+      </div> 
     );
   }
+}
+
+
+
+Content.defaultProps = {
+  propArray: [1, 2, 3],
+  propBool: true,
+  propFunction: function(e) {return e},
+  propNumber: 2,
+  propString: 'Testing',
+  propObject: {
+    objectName: "objectValue1",
+    objectName: "objectValue2",
+    objectName: "objectValue3"
+  }
+}
+
+Content.propTypes = {
+  propArray: React.PropTypes.array.isRequired,
+  propBool: React.PropTypes.bool.isRequired,
+  propFunction: React.PropTypes.func,
+  propNumber: React.PropTypes.number,
+  propString: React.PropTypes.string,
+  propObject: React.PropTypes.object
 }
 
 export default App;
